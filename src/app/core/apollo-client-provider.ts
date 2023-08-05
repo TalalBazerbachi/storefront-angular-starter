@@ -123,11 +123,19 @@ export function apolloOptionsFactory(
     });
     const middleware = new ApolloLink((operation, forward) => {
         if (isPlatformBrowser(platformId)) {
+            
             operation.setContext({
-                headers: new HttpHeaders().set(
+                headers: new HttpHeaders()
+                .set(
                     'Authorization',
                     `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY) || null}`,
-                ),
+                )
+                // .set(
+                //     'vendure-token', 
+                //     'talals-parts-token',
+                // )
+              
+                
             });
         }
         return forward(operation);
@@ -146,10 +154,11 @@ export function apolloOptionsFactory(
         apolloCache.reset();
     }
 
-    return {
+    return { 
         cache: apolloCache,
         ssrMode: true,
         ssrForceFetchDelay: 500,
         link: ApolloLink.from([middleware, afterware, http]),
+        
     };
 }

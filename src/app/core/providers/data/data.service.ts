@@ -10,11 +10,16 @@ import { filter, map } from 'rxjs/operators';
 })
 export class DataService {
 
-    private readonly context =  {
-        headers: {},
+    private  context =  {
+        headers: {
+            'vendure-token': 'talals-parts-token',
+
+        },
     };
 
-    constructor(private apollo: Apollo) { }
+    constructor(private apollo: Apollo) {
+   
+     }
 
     query<T = any, V extends Record<string, any> = {}>(query: DocumentNode, variables?: V, fetchPolicy?: WatchQueryFetchPolicy): Observable<T> {
         return this.apollo.watchQuery<T, V>({
@@ -23,6 +28,7 @@ export class DataService {
             context: this.context,
             fetchPolicy: fetchPolicy || 'cache-first',
         }).valueChanges.pipe(
+            
             filter(result => result.networkStatus === NetworkStatus.ready),
             map(response => response.data));
     }

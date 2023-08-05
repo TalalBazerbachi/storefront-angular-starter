@@ -17,7 +17,7 @@ import { SharedModule } from './shared/shared.module';
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled', initialNavigation: 'enabledBlocking' }),
+        RouterModule.forRoot(routes, { enableTracing: true,scrollPositionRestoration: 'disabled', initialNavigation: 'enabledBlocking' }),
         CoreModule,
         SharedModule,
         // Using the service worker appears to break SSR after the initial page load.

@@ -23,6 +23,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log("request is: ", req)
         return next.handle(req).pipe(
             tap(
                 event => {
